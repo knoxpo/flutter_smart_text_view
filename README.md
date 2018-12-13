@@ -16,7 +16,7 @@ See CHANGELOG for all breaking (and non-breaking) changes.
 You should ensure that you add the router as a dependency in your flutter project.
 ```yaml
 dependencies:
- smart_text_view: ^0.0.1
+ smart_text_view: ^0.0.2
 ```
 
 

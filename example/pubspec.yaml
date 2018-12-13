@@ -1,0 +1,17 @@
+name: smart_text_view_example
+description: smart_text_view example
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  url_launcher: ^4.0.2
+  smart_text_view:
+    path: ..
+
+flutter:
+  uses-material-design: true
