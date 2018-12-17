@@ -1,3 +1,6 @@
+## [0.1.0]
+* Bug fixes.
+
 ## [0.0.2] - bumped up Flutter.
 * Bumped up Flutter version to release.
 * Included Example.
