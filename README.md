@@ -1,7 +1,7 @@
 # SmartTextView
 The coolest, smartest TextView for Flutter.
 
-[![Version](https://img.shields.io/badge/version-1.3.7-blue.svg)](https://pub.dartlang.org/packages/smart_text_view)
+[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://pub.dartlang.org/packages/smart_text_view)
 [![pub package](https://img.shields.io/pub/v/smart_text_view.svg)](https://pub.dartlang.org/packages/smart_text_view)
 
 [Pub](https://pub.dartlang.org/packages/smart_text_view) - [API Docs](https://pub.dartlang.org/documentation/smart_text_view/latest/) - [GitHub](https://github.com/knoxpo/smart_text_view)
@@ -12,7 +12,7 @@ The coolest, smartest TextView for Flutter.
 - LinkTextSpan
 - Convert your normal text containing links or hash-tags to clickable
 
-## Version compatability
+## Version compatibility
 
 See CHANGELOG for all breaking (and non-breaking) changes.
 
