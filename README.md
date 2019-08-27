@@ -36,7 +36,7 @@ There is a pretty sweet example project in the `example` folder. Check it out. O
 ```dart
   SmartText(
     text:
-        'Hi, this is an example for both link example http://www.google.com and hashtag example #helloWorld',
+        'Hi, this is an example for both link example http://www.google.com and hashtag example #helloWorld @knoxpo',
     onOpen: (url) {
       _scaffoldKey.currentState.showSnackBar(
         SnackBar(
@@ -57,6 +57,16 @@ There is a pretty sweet example project in the `example` folder. Check it out. O
         ),
       );
     },
+    onUserTagClick: (tag){
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: ListTile(
+            title: Text('User tag clicked!'),
+            subtitle: Text(tag),
+          ),
+        ),
+      );
+    }
   );
 ```
 
