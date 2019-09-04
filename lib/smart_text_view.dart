@@ -1,4 +1,4 @@
-library smarter_text_view;
+library smart_text_view;
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
