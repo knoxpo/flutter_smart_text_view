@@ -30,6 +30,18 @@ class HashTagElement extends SmartTextElement {
   }
 }
 
+/// Represents an element containing a @
+class UserTagElement extends SmartTextElement {
+  final String tag;
+
+  UserTagElement(this.tag);
+
+  @override
+  String toString() {
+    return "HashTagElement: $tag";
+  }
+}
+
 /// Represents an element containing text
 class TextElement extends SmartTextElement {
   final String text;
@@ -46,6 +58,7 @@ final _linkRegex = RegExp(
     r"(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)",
     caseSensitive: false);
 final _tagRegex = RegExp(r"\B#\w*[a-zA-Z]+\w*", caseSensitive: false);
+final _userTagRegex = RegExp(r"\B@\w*[a-zA-Z]+\w*", caseSensitive: false);
 
 /// Turns [text] into a list of [SmartTextElement]
 List<SmartTextElement> _smartify(String text) {
@@ -58,6 +71,8 @@ List<SmartTextElement> _smartify(String text) {
         span.add(LinkElement(word));
       } else if (_tagRegex.hasMatch(word)) {
         span.add(HashTagElement(word));
+      } else if (_userTagRegex.hasMatch(word)) {
+        span.add(UserTagElement(word));
       } else {
         span.add(TextElement(word));
       }
@@ -94,8 +109,11 @@ class SmartText extends StatelessWidget {
   /// Callback for tapping a link
   final StringCallback onOpen;
 
-  /// Callback for tapping a link
+  /// Callback for tapping a hashtag
   final StringCallback onTagClick;
+
+  /// Callback for tapping a user tag
+  final StringCallback onUserTagClick;
 
   const SmartText({
     Key key,
@@ -105,6 +123,7 @@ class SmartText extends StatelessWidget {
     this.tagStyle,
     this.onOpen,
     this.onTagClick,
+    this.onUserTagClick
   }) : super(key: key);
 
   /// Raw TextSpan builder for more control on the RichText
@@ -114,23 +133,30 @@ class SmartText extends StatelessWidget {
       TextStyle linkStyle,
       TextStyle tagStyle,
       StringCallback onOpen,
-      StringCallback onTagClick}) {
+      StringCallback onTagClick,
+      StringCallback onUserTagClick}) {
     void _onOpen(String url) {
       if (onOpen != null) {
         onOpen(url);
       }
     }
 
-    void _onTagClick(String url) {
+    void _onTagClick(String tag) {
       if (onTagClick != null) {
-        onTagClick(url);
+        onTagClick(tag);
+      }
+    }
+
+    void _onUserTagClick(String userTag) {
+      if (onUserTagClick != null) {
+        onUserTagClick(userTag);
       }
     }
 
     final elements = _smartify(text);
 
     return TextSpan(
-        children: elements.map<TextSpan>((element) {
+      children: elements.map<TextSpan>((element) {
       if (element is TextElement) {
         return TextSpan(
           text: element.text,
@@ -147,6 +173,12 @@ class SmartText extends StatelessWidget {
           text: element.tag,
           style: tagStyle,
           onPressed: () => _onTagClick(element.tag),
+        );
+      } else if (element is UserTagElement) {
+        return LinkTextSpan(
+          text: element.tag,
+          style: tagStyle,
+          onPressed: () => _onUserTagClick(element.tag),
         );
       }
     }).toList());
@@ -178,6 +210,7 @@ class SmartText extends StatelessWidget {
             .merge(linkStyle),
         onOpen: onOpen,
         onTagClick: onTagClick,
+        onUserTagClick: onUserTagClick
       ),
     );
   }
